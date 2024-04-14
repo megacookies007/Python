@@ -1,0 +1,73 @@
+from time import sleep
+from pygame import mixer
+from colorama import Fore
+mixer.init()
+mixer.music.load("CAVEOFMANIA.wav")
+mixer.music.play(-1)
+GAME_START = False
+print(Fore.BLUE + "The Cave of Mania")
+TORCH = 0
+COIN = 0
+ONE_TREASURE = 0
+SWORD = 0
+while True:
+    ACTION = input(Fore.GREEN + "You are in the village. You can go to: CAVE OF MANIA, SHOP or FOREST")
+    if ACTION == "CAVE OF MANIA":
+        if TORCH > 0:
+            print("ABC")
+            # trzeba póżniej dopisać rzeczy do jaskini
+        else:
+            print("A villager says to you: You can't go there without a TORCH! You can buy one in the shop")
+            sleep(1.2)
+    elif ACTION == "SHOP":
+        SHOP_BUY = input("Do you wan't to buy a TORCH or a SWORD ? SWORD or TORCH")
+        if SHOP_BUY == "TORCH":
+            if COIN > 9:
+                print("You gained a TORCH !")
+                TORCH += 1
+                COIN -= 10
+                sleep(1.2)
+            elif COIN < 10:
+                print("Sorry, you can't afford a TORCH. You can gain money in the FOREST")
+                sleep(1.2)
+        elif SHOP_BUY == "SWORD":
+            if COIN > 4:
+                print("You gained a SWORD !")
+                SWORD += 1
+                COIN -= 5
+                sleep(1.2)
+            elif COIN < 5:
+                print("Sorry, you can't afford a SWORD. You can gain money in the FOREST")
+                SLEEP(1.2)
+    elif ACTION == "FOREST":
+        ACTION = input("You are in the FOREST. You can go: NORTH, SOUTH or WEST")
+        if ACTION == "WEST":
+            print("You fall into a canyon and you die ! GAME OVER")
+            sleep(4)
+            break
+        elif ACTION == "NORTH":
+            ACTION = input("You see a rare object. Do you want to touch that object ? YES or NO")
+            if ACTION == "YES":
+                if ONE_TREASURE == 0:
+                    print("You gain 5 COINS !")
+                    COIN += 5
+                    ONE_TREASURE += 2
+                    sleep(1.2)
+                else:
+                    print("It's only garbage")
+                    sleep(1.2)
+            else:
+                print("You decided to not touch that object")
+                sleep(1.2)
+        elif ACTION == "SOUTH":
+            ACTION = input(Fore.RED + "There is a monster ! You can: ESCAPE or FIGHT")
+            if ACTION == "FIGHT":
+                if SWORD > 0:
+                    ACTION = input(Fore.GREEN + "You defeated that monster ! Go to: NORTH or LEAVE THE FOREST")
+                    COIN += 5
+                elif SWORD < 1:
+                    print("The monster killed you ! GAME OVER")
+                    sleep(4)
+                    break
+                           
+
